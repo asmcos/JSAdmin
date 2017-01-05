@@ -3,7 +3,7 @@ import VueRouter from 'vue-router/dist/vue-router'
 
 import Home from './views/Home.vue'
 import Simple from './views/Simple.vue'
-import TestAudio from './views/TestAudio.vue'
+import Baz from './views/Baz'
 
 Vue.use(VueRouter)
 
@@ -12,7 +12,7 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     { path: '/', name: '/', component: Home },
-    { path: '/TestAudio', name: '/TestAudio', component: TestAudio },
+    { path: '/admin/baz', name: '/admin/baz', component: Baz },
     { path: '/Simple', name: '/Simple', component: Simple }
   ]
 })

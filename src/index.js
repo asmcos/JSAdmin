@@ -18,7 +18,7 @@ new Vue({
         url: '/admin/bar',
         vclass: 'treeview',
         submenus: [
-          { title: 'Bar1', url: '/admin/bar1' },
+          { title: 'Baz', url: '/admin/baz' },
           { title: 'Bar2', url: '/admin/bar2' }
         ]
       }
