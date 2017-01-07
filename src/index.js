@@ -7,18 +7,19 @@ import App from './App'
 require('admin-lte/dist/css/AdminLTE.css')
 require('admin-lte/dist/css/skins/skin-blue.min.css')
 
-// for side menu
+// for side menus
+// add a menu entry, need add a link entry by routers.js
 new Vue({
   el: '#menu_main',
   data: {
     menus: [
       { title: 'MENU', vclass: 'header' },
       { title: 'Home', url: '/admin/home' },
-      { title: 'Bar',
-        url: '/admin/bar',
+      { title: '日记管理',
+        url: '/admin/Blog',
         vclass: 'treeview',
         submenus: [
-          { title: 'Baz', url: '/admin/baz' },
+          { title: '我的日记', url: '/admin/myblog' },
           { title: 'Bar2', url: '/admin/bar2' }
         ]
       }

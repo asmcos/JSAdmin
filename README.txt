@@ -11,4 +11,5 @@ MySql
 
 #
 npm install webpack -g
+npm run build
 node build/release-server.js
