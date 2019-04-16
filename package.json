@@ -52,6 +52,7 @@
     "html": "^1.0.0",
     "html-webpack-plugin": "^2.26.0",
     "http-proxy-middleware": "^0.17.3",
+    "keystone": "^4.0.0",
     "morgan": "^1.7.0",
     "opn": "^4.0.2",
     "rollup": "^0.36.3",
@@ -66,5 +67,8 @@
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.14.0",
     "webpack-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
   }
 }
