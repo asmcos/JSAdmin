@@ -13,4 +13,7 @@ keystone.init({
 // load ./models/*.js
 keystone.import('models');
 
+// routes
+keystone.set('routes', require('./routes'));
+
 keystone.start();
