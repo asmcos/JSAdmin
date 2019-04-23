@@ -1,56 +1,28 @@
 var path = require('path')
 var projectRoot = path.resolve(__dirname, '../')
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry:path.resolve(__dirname, './') + '/webpack_entry.js',
   output: {
-    path: './dist', // This is where images AND js will go
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'dist'), // This is where images AND js will go
+	filename: 'js/[name].[chunkhash:8].js',
   },
-  resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
-    alias: {
-      'vue$': 'vue/dist/vue.common.js',
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
-    }
-  },
-  module: {
-    preLoaders: [
-      {
-        test: /\.vue$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      }
-    ],
-    loaders: [
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! to chain loaders
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      {
-        test: /\.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        include: projectRoot,
-        exclude: /node_modules/
-      },
-      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
-    ]
-  },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  }
+  plugins: [
+        new CopyWebpackPlugin([
+			 // Copy directory contents to {output}/to/directory/
+            { from: '../node_modules/admin-lte/dist/*'},
 
+		], {
+            ignore: [
+                // Doesn't copy any files with a txt extension    
+                '*.txt',
+            ],
+
+            // By default, we only copy modified files during
+            // a watch or webpack-dev-server build. Setting this
+            // to `true` copies all files.
+            copyUnmodified: true
+        }) //CopyWebpackPlugin
+	] //plugins
 };

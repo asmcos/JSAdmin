@@ -20,7 +20,7 @@
 
 var keystone = require('keystone');
 var importRoutes = keystone.importer(__dirname);
-
+var path = require('path');
 
 // Import Route Controllers
 var routes = {
@@ -33,12 +33,12 @@ exports = module.exports = function (app) {
     // Views
     app.get('/', routes.api.index);
 
+
     app.get('/menu/create', routes.api.create);
 
- //    app.get('/blog/post/:post', routes.views.post);
- //   app.get('/gallery', routes.views.gallery);
- //   app.all('/contact', routes.views.contact);
 
+ 	// use static for admin	
+	app.use('/admin', keystone.express.static(path.join(__dirname, '../admin')))
 
 };
 
