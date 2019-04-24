@@ -12,6 +12,7 @@ module.exports = {
         new CopyPlugin([
 			 // Copy directory contents to {output}/to/directory/
             { from: './node_modules/admin-lte/dist',to: '../../public'},
+            { from: './node_modules/bootstrap/dist',to: '../../public'},
 				
 		], {
             ignore: [

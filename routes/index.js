@@ -40,5 +40,8 @@ exports = module.exports = function (app) {
  	// use static for admin	
 	app.use('/admin', keystone.express.static(path.join(__dirname, '../admin')))
 
+	//other static ,admin-lte,bootstrap,
+	app.use('/static', keystone.express.static(path.join(__dirname, '../public')))
+
 };
 

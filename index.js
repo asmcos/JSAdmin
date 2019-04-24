@@ -11,6 +11,7 @@ keystone.init({
 });
 
 
+keystone.set("signin logo","/static/img/logo.jpg")
 
 
 // Load your project's Models
