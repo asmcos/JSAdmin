@@ -1,6 +1,6 @@
 var path = require('path')
 var projectRoot = path.resolve(__dirname, '../')
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry:path.resolve(__dirname, './') + '/webpack_entry.js',
@@ -9,10 +9,10 @@ module.exports = {
 	filename: 'js/[name].[chunkhash:8].js',
   },
   plugins: [
-        new CopyWebpackPlugin([
+        new CopyPlugin([
 			 // Copy directory contents to {output}/to/directory/
-            { from: '../node_modules/admin-lte/dist/*'},
-
+            { from: './node_modules/admin-lte/dist',to: '../../public'},
+				
 		], {
             ignore: [
                 // Doesn't copy any files with a txt extension    
