@@ -252,28 +252,28 @@ desired effect
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-       <ul class="sidebar-menu" id="menu_main">
+       <ul class="sidebar-menu" id="menu_main" data-widget="tree">
         <template v-for="m in menus">
         <li v-bind:class="m.vclass">
 
-						<template v-if='m.submenus'> <!--submenus-->
-             <a v-bind:href="m.url" v-if="m.url"><i class="fa fa-link"></i> <span>{{m.title}}</span>
-              <span class="pull-right-container">
+			<template v-if='m.submenus'> <!--submenus-->
+             <a href="#" v-if="m.url"><i class="fa fa-link"></i> <span>{{m.title}}</span>
+             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
              </a>    
               <ul class="treeview-menu">
-						  <template v-for="m1 in m.submenus">
-								<li>
+			    <template v-for="m1 in m.submenus">
+				<li>
                   <a v-bind:href="m1.url"><span>{{m1.title}}</span></a>
                 </li>
               </template> <!--submenus-->
               </ul>
             </template>
 
-						<template v-else> <!--no submenus-->
+			<template v-else> <!--no submenus-->
               <a v-bind:href="m.url" v-if="m.url"><i class="fa fa-link"></i> <span>{{m.title}}</span></a>
-						  <template v-else> {{m.title}}</template>
+			  <template v-else> {{m.title}}</template>
             </template>
         </li>
         
@@ -281,7 +281,9 @@ desired effect
        </ul>
       <!-- /.sidebar-menu -->
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
+
+
+      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Example</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active">
@@ -428,16 +430,43 @@ desired effect
 
 <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 2.2.3 -->
-<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
-<script src="/static/js/adminlte.min.js"></script>
+<!-- jQuery 3.3.1 -->
+<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+
+<script src="/static/js/vue.js"></script>
 
 <script src="/admin/js/isLogin.js"></script>
+<script src="/static/js/adminlte.js"></script>
 
 <script>
 $( document ).ready(function() {
 	var login = new isLogin()
 	login.getLoginInfo()
+
+	new Vue({
+     el: '#menu_main',
+     data: {
+       menus: [
+        { title: 'MENU', vclass: 'header' },
+        { title: 'Home', url: '/admin/home' },
+        { title: 'Bar',
+         url: '/admin/bar',
+         vclass: 'treeview',
+         submenus: [
+          { title: 'Bar1', url: '/admin/bar1' },
+          { title: 'Bar2', url: '/admin/bar2' }
+         ]
+        }
+      ]
+    }
+  }).$mount('#menu_main')
+
+  // scan all tree menu
+  // add tree click event
+  $('#menu_main').each(function () {
+      $.fn.tree.call($(this));
+  });
+
 });
 
 </script>
