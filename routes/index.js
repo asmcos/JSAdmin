@@ -31,11 +31,8 @@ var routes = {
 // Setup Route Bindings
 exports = module.exports = function (app) {
     // Views
-    app.get('/', routes.api.index);
 
-
-    app.get('/menu/create', routes.api.create);
-
+    app.get('/admin/api/lists', routes.api.lists);
 
  	// use static for admin	
 	app.use('/admin', keystone.express.static(path.join(__dirname, '../admin')))
@@ -44,4 +41,5 @@ exports = module.exports = function (app) {
 	app.use('/static', keystone.express.static(path.join(__dirname, '../public')))
 
 };
+
 
