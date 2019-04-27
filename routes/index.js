@@ -33,6 +33,7 @@ exports = module.exports = function (app) {
     // Views
 
     app.get('/admin/api/lists', routes.api.lists);
+    app.get('/admin/api/listcolumns/:list', routes.api.listcolumns);
 
  	// use static for admin	
 	app.use('/admin', keystone.express.static(path.join(__dirname, '../admin')))

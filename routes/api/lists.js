@@ -17,8 +17,9 @@ exports = module.exports = function (req, res) {
     });
 
 	async.each(lists, function (list, next) {
+	
         list.model.count(function (err, count) {
-            menus[list.key] = {path:list.path,count:count};
+            menus[list.key] = {path:list.path,count:count,options:list.getOptions()};
             next(err);
         });
     }, function (err) {
