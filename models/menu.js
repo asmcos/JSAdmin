@@ -18,7 +18,7 @@ Menu.schema.pre('save', function (next) {
   return next();
 });
 
-Menu.defaultColumns = 'title,url';
+Menu.defaultColumns = 'title,url,level';
 Menu.register();
 
 
