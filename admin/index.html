@@ -272,7 +272,7 @@ desired effect
             </template>
 
 			<template v-else> <!--no submenus-->
-              <a v-bind:href="m.url" v-if="m.url" v-on:click="menuHandle"><i class="fa fa-table"></i> <span>{{m.title}}</span>
+              <a v-if="m.url" v-on:click="menuHandle(m.url,m.options)"><i class="fa fa-table"></i> <span>{{m.title}}</span>
 			   <span class="pull-right-container">
                 <span class="label label-primary pull-right">{{m.count}}</span>
                </span>
@@ -336,7 +336,7 @@ desired effect
     <!-- Main content -->
     <section class="content">
       <!-- Your Page Content Here -->
-		<iframe id="subpage" width="100%" height="100%" src="/admin/lists.html" frameborder="0" data-id="" seamless=""></iframe>
+		<iframe id="subpage" width="100%" class="content-wrapper" style="margin-left:0px;" src="/admin/lists.html" frameborder="0" ></iframe>
 
     </section>
     <!-- /.content -->
@@ -454,18 +454,22 @@ $( document ).ready(function() {
       ]
     },
 	methods: {
-    	menuHandle: function (event) {
-      	if (event) {
-        	alert(event.target.tagName)
-      	}
-    }
+
+		//url = /keystone/api/:list
+
+    	menuHandle: function (list,options) {
+			var timestamp = (new Date()).valueOf(); 
+			$("#subpage").attr("src","/admin/lists.html?time="+timestamp);
+		 	$("#subpage").attr("list",list);	
+		 	$("#subpage").attr("options",options);
+    	},
   }
   });
    
    db.getDBInfo(menuVue)
 
    menuVue.$mount('#menu_main')
-   window.menu = menuVue
+
   // scan all tree menu
   // add tree click event
   $('#menu_main').each(function () {

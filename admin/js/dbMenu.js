@@ -33,7 +33,7 @@ DbMenu.prototype = {
             	success: function(data){
 					var keys = Object.keys(data);
 					keys.forEach(function(k){
-						var m = {title : k,url:"/keystone/api/"+data[k].path,count:data[k].count}
+						var m = {title : k,url:data[k].path,count:data[k].count,options:data[k].options.defaultColumns}
 						
 						vue.$data.menus.push(m)
 					})										
