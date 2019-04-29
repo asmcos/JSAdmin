@@ -10,10 +10,6 @@ Menu.add({
   hiden: { type: Boolean },
 });
 
-Menu.schema.virtual('canAccessKeystone').get(function () {
-  return true;
-});
-
 Menu.schema.pre('save', function (next) {
   return next();
 });

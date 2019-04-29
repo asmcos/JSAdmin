@@ -25,7 +25,7 @@
                         <div class="input-group input-group-sm" style="width: 150px;">
 
                           <div class="input-group-btn">
-                            <a href="#" class="btn btn-danger pull-right btn-block btn-sm"><b>创建</b></a>
+                            <a v-on:click="createPage(name)" class="btn btn-danger pull-right btn-block btn-sm"><b> + 创建</b></a>
                           </div>
                         </div>
                       </div>
@@ -80,7 +80,7 @@
 	$( document ).ready(function() {
 		var list = parent.subpage.getAttribute("list");
 		var options = parent.subpage.getAttribute("options");
-
+		var ifra = parent.subpage
         var listVue = new Vue({
              el: '#list_main',
              data: {
@@ -90,7 +90,14 @@
                 data:false,
                 column:false,
             },
+			methods:{
+				// name:list ===> name=list
+				createPage: function(list){
+	    	        var timestamp = (new Date()).valueOf();
+	        	    ifra.src = "/admin/forms.html?time="+timestamp;
 
+				},
+			}
 
         });
 
