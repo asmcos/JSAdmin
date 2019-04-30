@@ -11,7 +11,7 @@ function Forms(){
 
 function input(opts){
 	
-	return formCreate.maker.input(opts['label'],opts['path'])
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12})
 }
 
 function formswitch(opts){
@@ -22,14 +22,90 @@ function formswitch(opts){
 
 function password(opts){
 
-	return formCreate.maker.password(opts['label'],opts['path'])
+	return formCreate.maker.password(opts['label'],opts['path']).col({span:8})
 }
 
+function email(opts){
 
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 10})
+
+}
+
+function url(opts){
+	
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12})
+}
+
+function number(opts){
+	
+	return formCreate.maker.number(opts['label'],opts['path']).col({span: 6})
+}
+
+function color(opts){
+	
+	return formCreate.maker.color(opts['label'],opts['path'],'#F12345')
+}
+
+function select(opts){
+	
+	return formCreate.maker.select(opts['label'],opts['path']).options(opts['ops']).props({
+        multiple:true
+	}).col({span:6})
+}
+function date(opts){
+	
+	return formCreate.maker.date(opts['label'],opts['path'],[new Date()]).props({
+        "type": "date",
+	})
+}
+function datetime(opts){
+	
+	return formCreate.maker.date(opts['label'],opts['path'],[new Date()]).props({
+        "type": "datetime",
+	})
+}
+function file(opts){
+	
+	return formCreate.maker.upload(opts['label'],opts['path']).col({span: 6}).props({
+            "action": "",
+            "maxLength": 4,
+            "multiple": true,
+            "type": "select",
+            "uploadType": "image",
+            "name": "file",
+            "onSuccess": function () {
+                return '/logo.jpg';
+            },
+        })
+}
+function textarea(opts){
+	
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12}).props({
+        "type": "textarea",
+        "rows":5
+      }).col({span:16})
+}
+
+function html(opts){
+	
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12}).props({
+        "type": "textarea",
+        "rows":5
+      }).col({span:16}).className("tinyMCE")
+}
 var CreateTable={
-	"email":input,
+	"email":email,
 	"boolean":formswitch,
 	"password":password,
+	"url":url,
+	"number":number,
+	"textarea":textarea,
+	"file":file,
+	"color":color,
+	"date":date,
+	"datetime":datetime,
+	"html":html,
+	"select":select,
 }
 
 function getMaker(field){
@@ -62,6 +138,9 @@ Forms.prototype = {
 					
 
 					vue.$data.rule = rule
+					vue.$nextTick(function(){
+									tinymce.init({selector:'.tinyMCE textarea'})
+								})
 				},
 				error : function() {
     			},

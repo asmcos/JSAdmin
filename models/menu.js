@@ -4,8 +4,8 @@ var Types = keystone.Field.Types;
 var Menu = new keystone.List('Menu');
 
 Menu.add({
-  title: { type: String, required: true, initial: true },
-  url: { type: String},
+  title: { type: String, required: true, initial: true},
+  url: { type: Types.Url},
   level: { type: Number, default: 0},
   hiden: { type: Boolean },
 });

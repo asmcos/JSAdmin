@@ -42,6 +42,7 @@
     </body>
 
 	<script src="/admin/js/forms.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.4/tinymce.min.js"></script>
 	<script>
 	$( document ).ready(function() {
 		var list = parent.subpage.getAttribute("list");
@@ -52,18 +53,29 @@
         		fApi:{},
         		model: {},
         		rule:[
-            		formCreate.maker.input('商品名称','goods_name'),
-            		formCreate.maker.date('创建时间','created_at')
+            		//formCreate.maker.input('商品名称','goods_name'),
         		],
         	option:{
             	onSubmit:function (formData) {
                 	alert(JSON.stringify(formData));
-            	}
-        		}
+            	},
+				resetBtn:true,
+				submitBtn: {
+        			type: "primary",
+        			size: "large",
+        			icon: "",
+        			shape: "round",
+        			col: {
+          				span: 4,
+          				offset: 10
+        			}
+      			},
+             }, //option
+			
     		},
    		 mounted:function () {
         	this.model = this.fApi.model();
-    	}
+ 	}
 		});
 		
 		if (list){
