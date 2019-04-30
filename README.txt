@@ -18,6 +18,6 @@ node index.js
 
 # browser http://127.0.0.1:3000/admin/index.html
 
-![Demo image](https://github.com/asmcos/JSAdmin/blob/master/img.jpg)
+![image](https://github.com/asmcos/JSAdmin/blob/master/img.jpg)
 
 #support auto keystone fields to forms
