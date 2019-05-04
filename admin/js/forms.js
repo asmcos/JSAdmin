@@ -33,7 +33,7 @@ function email(opts){
 
 function url(opts){
 	
-	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12})
+	return formCreate.maker.url(opts['label'],opts['path']).col({span: 12})
 }
 
 function number(opts){
@@ -90,8 +90,9 @@ function html(opts){
 	
 	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12}).props({
         "type": "textarea",
-        "rows":5
-      }).col({span:16}).className("tinyMCE")
+        "rows":5,
+      }).col({span:16}).className("tinyMCE").emit('change')
+
 }
 var CreateTable={
 	"email":email,
@@ -120,6 +121,16 @@ function getMaker(field){
 
 }
 
+function getFieldByEl(vue,id,content){
+
+	vue.$data.rule.forEach(function(f){
+		if (f.props.elementId === id){
+			f.value = content
+		}
+	})
+
+}
+
 Forms.prototype = {
 
 	set:function (list,vue){
@@ -139,7 +150,15 @@ Forms.prototype = {
 
 					vue.$data.rule = rule
 					vue.$nextTick(function(){
-									tinymce.init({selector:'.tinyMCE textarea'})
+									tinymce.init({selector:'.tinyMCE textarea',    
+											setup: function (editor) {
+												editor.on(
+              										'input change undo redo', () => {
+              											editor.save() 
+														getFieldByEl(vue,this.id,editor.getContent())
+													})
+        										}
+    									})//init
 								})
 				},
 				error : function() {

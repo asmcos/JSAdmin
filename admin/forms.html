@@ -75,9 +75,10 @@
     		},
    		 mounted:function () {
         	this.model = this.fApi.model();
- 	}
+ 		  }
 		});
-		
+		window.formVue = formVue
+
 		if (list){
             new Forms().set(list,formVue);
 
