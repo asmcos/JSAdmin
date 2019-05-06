@@ -133,6 +133,8 @@ function convertData(vue,data){
 	var Data = new FormData();
 
 	vue.$data.rule.forEach(function(f){
+		if (f.value === "")
+			return 
 		if (f.props.type === "file"){
 			Data.append(f.field, $("#"+f.props.elementId)[0].files[0])
 		} else {
@@ -178,6 +180,61 @@ Forms.prototype = {
 
 
 	},
+	setById:function (list,vue,url){
+		var that = this
+
+		$.ajax({url:"/admin/api/form/" + list,
+				dataType: "json",
+            	success: function(data){
+					var fields = data["keystone"]["list"]["fields"];
+					var rule = []	;				
+
+				
+					Object.keys(fields).forEach(function(k){
+						
+						rule.push(getMaker(fields[k],list))
+					})
+					vue.$data.xcsrftoken = data["keystone"]["csrf"]["header"]["x-csrf-token"]					
+
+					vue.$data.rule = rule
+
+					that.getDataById(list,vue,url)
+
+
+    			},
+				error : function() {
+    			},
+		});
+
+
+	},
+	getDataById:function (list,vue,url){
+		
+		id = urlParam(url,"id")
+		$.ajax({url:"/keystone/api/" + list + "/" + id,
+				dataType: "json",
+            	success: function(data){
+						vue.$data.rule.forEach(function(k){
+							if (data.fields[k.field]){
+								k.value = data.fields[k.field]
+							}
+						})
+						vue.$nextTick(function(){
+									tinymce.init({selector:'.tinyMCE textarea',    
+											setup: function (editor) {
+												editor.on(
+              										'input change undo redo', () => {
+              											editor.save() 
+														getFieldByEl(vue,this.id,editor.getContent())
+													})
+        										}
+    									})//init
+								})
+					
+				},
+		})
+	},
+	
 	post:function(list,vue,data){
 		
 		var formData = convertData(vue,data)	
@@ -200,4 +257,13 @@ Forms.prototype = {
 		});//ajax
 	}
 
+}
+
+
+function urlParam (url,name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
 }

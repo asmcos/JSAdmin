@@ -12,8 +12,8 @@ var Demo = new keystone.List('Demo');
 var storage = new keystone.Storage({
     adapter: keystone.Storage.Adapters.FS,
     fs: {
-        path: 'uploads',
-        publicPath: '/public/uploads/',
+        path: 'public/uploads',
+        publicPath: '/static/uploads/',
     }
 });
 
