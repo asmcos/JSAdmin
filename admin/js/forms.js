@@ -204,17 +204,14 @@ Forms.prototype = {
 							
 							if (fields[k].type !== "file"){
 								field.rule.value = formdata[k]
-							} else {
-
+							} else if (formdata[k].filename) { //recreate input.type=file and append a children
 								field = formCreate.maker.create('input',fields[k]['path'],fields[k]['label']).props({
             								type: "file",
            								 }).col({span:12}).children([
-
-												// add a children to display old filename
   									  			formCreate.maker.create('span').children([formdata[k].filename]).slot('append')
 										]).event({
-											    // if select a new file, hidden old filename
 											    change:function(e){
+												  // when select a new file,auto delete children
 												   e.target.nextElementSibling.remove()
 											    }
 										})
