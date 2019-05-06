@@ -104,9 +104,8 @@ var CreateTable={
 	"select":select,
 }
 
-function getMaker(field,list){
+function getMaker(field){
 	
-
 
 	maker = CreateTable[field.type]
 
@@ -114,7 +113,7 @@ function getMaker(field,list){
 		return input(field)
 	}
 	
-	return maker(field,list)
+	return maker(field)
 
 }
 
@@ -157,7 +156,7 @@ Forms.prototype = {
 				
 					Object.keys(fields).forEach(function(k){
 						
-						rule.push(getMaker(fields[k],list))
+						rule.push(getMaker(fields[k]))
 					})
 					vue.$data.xcsrftoken = data["keystone"]["csrf"]["header"]["x-csrf-token"]					
 
@@ -180,7 +179,7 @@ Forms.prototype = {
 
 
 	},
-	setById:function (list,vue,url){
+	setform:function (list,vue,formdata){
 		var that = this
 
 		$.ajax({url:"/admin/api/form/" + list,
@@ -191,15 +190,56 @@ Forms.prototype = {
 
 				
 					Object.keys(fields).forEach(function(k){
-						
-						rule.push(getMaker(fields[k],list))
+						var field = getMaker(fields[k])	
+
+						// formdata from db
+						// input.type == file
+                        // display old filename by a children element.
+						// 编辑数据来自数据库
+                        // 当类型是 fileupload时,之前上传的文件名,不能显示在input.type=file控件里
+                        // 只能采取children方法，追加一个span来显示老的文件名字
+						// 如果用户新选择了文件，我们获取change事件，remove老的文件名（children控件）
+
+						if (formdata[k]){
+							
+							if (fields[k].type !== "file"){
+								field.rule.value = formdata[k]
+							} else {
+
+								field = formCreate.maker.create('input',fields[k]['path'],fields[k]['label']).props({
+            								type: "file",
+           								 }).col({span:12}).children([
+
+												// add a children to display old filename
+  									  			formCreate.maker.create('span').children([formdata[k].filename]).slot('append')
+										]).event({
+											    // if select a new file, hidden old filename
+											    change:function(e){
+												   e.target.nextElementSibling.remove()
+											    }
+										})
+							}
+						}
+
+						rule.push(field)
 					})
+
 					vue.$data.xcsrftoken = data["keystone"]["csrf"]["header"]["x-csrf-token"]					
 
 					vue.$data.rule = rule
 
-					that.getDataById(list,vue,url)
-
+					vue.$nextTick(function(){
+									tinymce.init({selector:'.tinyMCE textarea',    
+											setup: function (editor) {
+												editor.on(
+              										'input change undo redo', () => {
+              											editor.save() 
+														getFieldByEl(vue,this.id,editor.getContent())
+													})
+        										}
+    									})//init
+					})
+	
 
     			},
 				error : function() {
@@ -210,28 +250,14 @@ Forms.prototype = {
 	},
 	getDataById:function (list,vue,url){
 		
+		var that = this
 		id = urlParam(url,"id")
 		$.ajax({url:"/keystone/api/" + list + "/" + id,
 				dataType: "json",
             	success: function(data){
-						vue.$data.rule.forEach(function(k){
-							if (data.fields[k.field]){
-								k.value = data.fields[k.field]
-							}
-						})
-						vue.$nextTick(function(){
-									tinymce.init({selector:'.tinyMCE textarea',    
-											setup: function (editor) {
-												editor.on(
-              										'input change undo redo', () => {
-              											editor.save() 
-														getFieldByEl(vue,this.id,editor.getContent())
-													})
-        										}
-    									})//init
-								})
-					
-				},
+					that.setform(list,vue,data.fields)
+				
+				},//success
 		})
 	},
 	
