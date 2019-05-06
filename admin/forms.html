@@ -35,7 +35,7 @@
     <body>
 
 	<div id="app1">
-	    <form-create ref="fc" v-model="fApi" :rule="rule" :option="option"></form-create>
+	    <form-create id="createForm" ref="fc" v-model="fApi" :rule="rule" :option="option"></form-create>
 	</div>
 
 
@@ -46,7 +46,6 @@
 	<script>
 	$( document ).ready(function() {
 		var list = parent.subpage.getAttribute("list");
-		//var options = parent.subpage.getAttribute("options");	
 		var formVue = new Vue({
     		el:'#app1',
     		data:{
@@ -55,9 +54,12 @@
         		rule:[
             		//formCreate.maker.input('商品名称','goods_name'),
         		],
-        	option:{
+				xcsrftoken:"",
+        	   option:{
             	onSubmit:function (formData) {
+
                 	alert(JSON.stringify(formData));
+					new Forms().post(list,formVue,formData);
             	},
 				resetBtn:true,
 				submitBtn: {
@@ -70,9 +72,9 @@
           				offset: 10
         			}
       			},
-             }, //option
+               }, //option
 			
-    		},
+    		}, // data
    		 mounted:function () {
         	this.model = this.fApi.model();
  		  }

@@ -64,19 +64,14 @@ function datetime(opts){
         "type": "datetime",
 	})
 }
+
 function file(opts){
 	
-	return formCreate.maker.upload(opts['label'],opts['path']).col({span: 6}).props({
-            "action": "",
-            "maxLength": 4,
-            "multiple": true,
-            "type": "select",
-            "uploadType": "image",
-            "name": "file",
-            "onSuccess": function () {
-                return '/logo.jpg';
-            },
-        })
+
+	return  formCreate.maker.create('input',opts['path'],opts['label']).props({
+			type: "file",
+  			}).col({span:12})
+
 }
 function textarea(opts){
 	
@@ -109,15 +104,17 @@ var CreateTable={
 	"select":select,
 }
 
-function getMaker(field){
+function getMaker(field,list){
 	
+
+
 	maker = CreateTable[field.type]
 
 	if (!maker){
 		return input(field)
 	}
 	
-	return maker(field)
+	return maker(field,list)
 
 }
 
@@ -129,6 +126,20 @@ function getFieldByEl(vue,id,content){
 		}
 	})
 
+}
+
+function convertData(vue,data){
+
+	var Data = new FormData();
+
+	vue.$data.rule.forEach(function(f){
+		if (f.props.type === "file"){
+			Data.append(f.field, $("#"+f.props.elementId)[0].files[0])
+		} else {
+			Data.append(f.field, f.value)
+		}
+	})
+	return Data
 }
 
 Forms.prototype = {
@@ -144,9 +155,9 @@ Forms.prototype = {
 				
 					Object.keys(fields).forEach(function(k){
 						
-						rule.push(getMaker(fields[k]))
+						rule.push(getMaker(fields[k],list))
 					})
-					
+					vue.$data.xcsrftoken = data["keystone"]["csrf"]["header"]["x-csrf-token"]					
 
 					vue.$data.rule = rule
 					vue.$nextTick(function(){
@@ -167,5 +178,26 @@ Forms.prototype = {
 
 
 	},
+	post:function(list,vue,data){
+		
+		var formData = convertData(vue,data)	
+
+
+		$.ajax({
+			url:"/keystone/api/" + list + "/create",	
+			type:"POST",
+			beforeSend:function(request){
+				request.setRequestHeader("x-csrf-token",vue.$data.xcsrftoken)
+			},
+			cache: false,
+			processData: false, 
+			contentType: false,     //ajax don't set request headers
+			data:formData,          //submit data
+			dataType:"json",        //return data type
+			success:function(data){
+				console.log(data)
+			}
+		});//ajax
+	}
 
 }
