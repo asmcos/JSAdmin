@@ -34,7 +34,10 @@
 
     <body>
 
-	<div id="app1">
+	<div id="app1" class="box box-warning">
+		<div class="box-header with-border">
+              <h3 class="box-title">{{list}}</h3>
+        </div>
 	    <form-create id="createForm" ref="fc" v-model="fApi" :rule="rule" :option="option"></form-create>
 	</div>
 
@@ -51,6 +54,7 @@
     		data:{
         		fApi:{},
         		model: {},
+				list:list,
         		rule:[
             		//formCreate.maker.input('商品名称','goods_name'),
         		],
