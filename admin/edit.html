@@ -60,7 +60,7 @@
             	onSubmit:function (formData) {
 
                 	alert(JSON.stringify(formData));
-					new Forms().post(list,formVue,formData);
+					new Forms().update(list,formVue,formData,url);
             	},
 				resetBtn:true,
 				submitBtn: {

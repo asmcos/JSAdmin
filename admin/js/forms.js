@@ -200,8 +200,8 @@ Forms.prototype = {
                         // 只能采取children方法，追加一个span来显示老的文件名字
 						// 如果用户新选择了文件，我们获取change事件，remove老的文件名（children控件）
 
-						if (formdata[k]){
-							
+						if (formdata[k] && fields[k].type != "password"){
+								
 							if (fields[k].type !== "file"){
 								field.rule.value = formdata[k]
 							} else if (formdata[k].filename) { //recreate input.type=file and append a children
@@ -265,6 +265,27 @@ Forms.prototype = {
 
 		$.ajax({
 			url:"/keystone/api/" + list + "/create",	
+			type:"POST",
+			beforeSend:function(request){
+				request.setRequestHeader("x-csrf-token",vue.$data.xcsrftoken)
+			},
+			cache: false,
+			processData: false, 
+			contentType: false,     //ajax don't set request headers
+			data:formData,          //submit data
+			dataType:"json",        //return data type
+			success:function(data){
+				console.log(data)
+			}
+		});//ajax
+	},
+	update:function(list,vue,data,url){
+		
+		id = urlParam(url,"id")
+		var formData = convertData(vue,data)	
+
+		$.ajax({
+			url:"/keystone/api/" + list + "/" + id ,	
 			type:"POST",
 			beforeSend:function(request){
 				request.setRequestHeader("x-csrf-token",vue.$data.xcsrftoken)
