@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
@@ -39,9 +40,9 @@
                           <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
                         <tr role="row" >
-                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 160px;" v-for="h in header">{{h.label}}</th>
+                            <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 160px;" v-for="h in header">{{h.label}}</th>
 
-                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 60px;" >Opreate</th>
+                            <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width: 60px;" >Opreate</th>
 
                         </tr>
                         </thead>
@@ -53,12 +54,13 @@
 
                         <tr role="row" class="{'even': $index % 2 === 0, 'odd': $index % 2 !== 0 }" v-for="l in lists">
                           <td v-for="h in header">
-							<a v-on:click="edit(l[h.path])" v-if=" h.path === 'id' "> {{l[h.path]}} </a>
-							<template v-else> {{l[h.path]}} </template>
+							<template> {{l[h.path]}} </template>
 						  </td>
 						  <td>
-							<a v-on:click="deleteById(l['id'])" ><span class="glyphicon glyphicon-trash"></span></a>
-							<a v-on:click="edit(l['id'])" ><span class="glyphicon glyphicon-edit"></span></a>
+							<a v-on:click="deleteById(l['id'])" style="color:#dd4b39;width: 50%;display: block;float: left;">
+								<span class="glyphicon glyphicon-trash" style="text-align: center;margin: 0 auto;display: block;"> </span></a>
+							<a v-on:click="edit(l['id'])" style="color: #3c8dbc;width: 50%;display: block;float: left;">
+								<span class="glyphicon glyphicon-edit" style="text-align: center;margin: 0 auto;display: block;"></span></a>
 						  </td>
                         <tr>
 
