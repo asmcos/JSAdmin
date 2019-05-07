@@ -41,6 +41,7 @@
                         <tr role="row" >
                             <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 160px;" v-for="h in header">{{h.label}}</th>
 
+                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 60px;" >Opreate</th>
 
                         </tr>
                         </thead>
@@ -54,6 +55,10 @@
                           <td v-for="h in header">
 							<a v-on:click="edit(l[h.path])" v-if=" h.path === 'id' "> {{l[h.path]}} </a>
 							<template v-else> {{l[h.path]}} </template>
+						  </td>
+						  <td>
+							<a v-on:click="deleteById(l['id'])" ><span class="glyphicon glyphicon-trash"></span></a>
+							<a v-on:click="edit(l['id'])" ><span class="glyphicon glyphicon-edit"></span></a>
 						  </td>
                         <tr>
 
@@ -87,6 +92,7 @@
                 name:list,
                 data:false,
                 column:false,
+				xcsrftoken:"",
             },
 			methods:{
 				// name:list ===> name=list
@@ -97,6 +103,9 @@
 				edit: function(id){
 	    	        var timestamp = (new Date()).valueOf();
 	        	    ifra.src = "/admin/edit.html?id="+id;
+				},
+				deleteById: function(id){
+					 new Lists().delete(list,id,listVue);
 				},
 			}
 

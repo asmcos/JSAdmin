@@ -28,8 +28,10 @@ exports = module.exports = function (req, res) {
 	var defaultColumns = columns.map(function (c) {
         return _.pick(c, ['label', 'path']);
    	});	
+
+   csrf = keystone.security.csrf.getToken(req, res);
 	
-   return res.json({defaultColumns:defaultColumns});
+   return res.json({defaultColumns:defaultColumns,csrf:csrf});
    
 
 }

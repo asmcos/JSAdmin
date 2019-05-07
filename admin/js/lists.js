@@ -35,11 +35,33 @@ Lists.prototype = {
 					vue.$data.header = data['defaultColumns']
 					vue.$data.column = true
 
+					vue.$data.xcsrftoken = data["csrf"]
 				},
 				error : function() {
 				},
 		});
 
+	},
+	delete:function(list,id,vue){
+
+			var Data = new FormData();
+
+			Data.append("id",id)
+		
+			$.ajax({url:"/keystone/api/"+list+"/delete",
+            	type:"POST",
+            	beforeSend:function(request){
+                	request.setRequestHeader("x-csrf-token",vue.$data.xcsrftoken)
+            	},
+            	cache: false,
+            	processData: false,
+            	contentType: false,     //ajax don't set request headers
+				dataType: "json",
+				data: Data,
+            	success: function(data){
+				}
+			});
+		
 	},
 
 }
