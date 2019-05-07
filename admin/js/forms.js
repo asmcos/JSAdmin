@@ -196,16 +196,24 @@ Forms.prototype = {
 						// input.type == file
                         // display old filename by a children element.
 						// 编辑数据来自数据库
-                        // 当类型是 fileupload时,之前上传的文件名,不能显示在input.type=file控件里
+                        // 1. password 类型和空值 都不需要赋值
+						// 2. name 类型,只取first,
+						// 3. file 类型，如果没有filename就走走空值，有filename 
+						// 当类型是 fileupload时,之前上传的文件名,不能显示在input.type=file控件里
                         // 只能采取children方法，追加一个span来显示老的文件名字
 						// 如果用户新选择了文件，我们获取change事件，remove老的文件名（children控件）
 
 						if (formdata[k] && fields[k].type != "password"){
 								
-							if (fields[k].type !== "file"){
-								field.rule.value = formdata[k]
-							} else if (formdata[k].filename) { //recreate input.type=file and append a children
-								field = formCreate.maker.create('input',fields[k]['path'],fields[k]['label']).props({
+							if (fields[k].type === "name"){
+
+								field.rule.value = formdata[k].first
+
+							} else if (fields[k].type === "file" ) { //recreate input.type=file and append a children
+
+								if (formdata[k].filename) {
+								
+									field = formCreate.maker.create('input',fields[k]['path'],fields[k]['label']).props({
             								type: "file",
            								 }).col({span:12}).children([
   									  			formCreate.maker.create('span').children([formdata[k].filename]).slot('append')
@@ -215,6 +223,11 @@ Forms.prototype = {
 												   e.target.nextElementSibling.remove()
 											    }
 										})
+								}
+
+							} else {
+								//default
+								field.rule.value = formdata[k]
 							}
 						}
 

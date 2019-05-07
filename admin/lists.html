@@ -54,7 +54,8 @@
 
                         <tr role="row" class="{'even': $index % 2 === 0, 'odd': $index % 2 !== 0 }" v-for="l in lists">
                           <td v-for="h in header">
-							<template> {{l[h.path]}} </template>
+							<template v-if=" h.path === 'name'"> {{l[h.path].first}}  {{l[h.path].last}} </template>
+							<template v-else> {{l[h.path]}} </template>
 						  </td>
 						  <td>
 							<a v-on:click="deleteById(l['id'])" style="color:#dd4b39;width: 50%;display: block;float: left;">
