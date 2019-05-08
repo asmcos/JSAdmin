@@ -31,7 +31,7 @@ Lists.prototype = {
 		$.ajax({url:"/admin/api/listcolumns/"+list,
 				dataType: "json",
 				success: function(data){
-					data['defaultColumns'].unshift({"label":"Id",path:"id"})
+					// data['defaultColumns'].unshift({"label":"Id",path:"id"})
 					vue.$data.header = data['defaultColumns']
 					vue.$data.column = true
 
