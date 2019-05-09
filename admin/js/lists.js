@@ -11,7 +11,7 @@ Lists.prototype = {
 
 	get:function (list,options,vue){
 		var that = this
-		$.ajax({url:"/keystone/api/"+list+"?fields="+options + "&limit=100",
+		$.ajax({url:"/admin/api/get/"+list+"?fields="+options + "&limit=100&sort=-_id",
 				dataType: "json",
             	success: function(data){
 					//vue.$data.lists.push(m)

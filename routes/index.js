@@ -33,6 +33,7 @@ exports = module.exports = function (app) {
     // Views
 
     app.get('/admin/api/index', routes.api.index);
+    app.get('/admin/api/get/:list', routes.api.get);
     app.get('/admin/api/form/:list', routes.api.uiform);
     app.get('/admin/api/lists', routes.api.lists);
     app.get('/admin/api/listcolumns/:list', routes.api.listcolumns);
