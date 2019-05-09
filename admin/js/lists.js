@@ -11,7 +11,7 @@ Lists.prototype = {
 
 	get:function (list,options,vue){
 		var that = this
-		$.ajax({url:"/admin/api/get/"+list+"?fields="+options + "&limit=100&sort=-_id",
+		$.ajax({url:"/admin/api/get/"+list+"?fields="+options + "&limit="+vue.$data.pagesize+"&sort=-_id",
 				dataType: "json",
             	success: function(data){
 					//vue.$data.lists.push(m)
@@ -23,6 +23,7 @@ Lists.prototype = {
 					})
 
 					vue.$data.data = true
+					vue.$data.lastpage = Math.ceil(data.count/vue.$data.pagesize)
 				},
 				error : function() {
     			},
@@ -41,6 +42,22 @@ Lists.prototype = {
 				},
 		});
 
+	},
+	getpage:function(list,options,vue,skip){
+		        var that = this
+		        $.ajax({url:"/admin/api/get/"+list+"?fields="+options + "&limit="+vue.$data.pagesize+"&sort=-_id&skip=" +skip,
+                dataType: "json",
+                success: function(data){
+					vue.$data.lists = []
+                    data["results"].forEach(function(l){
+                        l["fields"]["id"] = l["id"]
+                        vue.$data.lists.push(l["fields"])
+                    })
+
+                },
+                error : function() {
+                },
+        	});
 	},
 	delete:function(list,id,vue){
 
