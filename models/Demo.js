@@ -6,7 +6,9 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
-var Demo = new keystone.List('Demo');
+var Demo = new keystone.List('Demo',{
+	defaultSort: '-id'
+	});
 
 
 var storage = new keystone.Storage({
@@ -14,6 +16,10 @@ var storage = new keystone.Storage({
     fs: {
         path: 'public/uploads',
         publicPath: '/static/uploads/',
+		generateFilename: (file) => {
+			const ext = file.originalname.substr(file.originalname.lastIndexOf('.') + 1);
+			return `${file.filename}.${ext}`;
+		}
     }
 });
 
