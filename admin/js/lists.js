@@ -76,6 +76,9 @@ Lists.prototype = {
 				dataType: "json",
 				data: Data,
             	success: function(data){
+					var ifra = parent.subpage
+					var timestamp = (new Date()).valueOf();
+                    ifra.src = "/admin/lists.html?time="+timestamp;					
 				}
 			});
 		

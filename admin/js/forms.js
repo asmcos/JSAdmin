@@ -11,58 +11,58 @@ function Forms(){
 
 function input(opts){
 	
-	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12})
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12}).validate({required:opts['required']})
 }
 
 function formswitch(opts){
 
-	return formCreate.maker.switch(opts['label'],opts['path'],"0")
+	return formCreate.maker.switch(opts['label'],opts['path'],"0").validate({required:opts['required']})
 }
 
 
 function password(opts){
 
-	return formCreate.maker.password(opts['label'],opts['path']).col({span:8})
+	return formCreate.maker.password(opts['label'],opts['path']).col({span:8}).validate({required:opts['required']})
 }
 
 function email(opts){
 
-	return formCreate.maker.input(opts['label'],opts['path']).col({span: 10})
+	return formCreate.maker.input(opts['label'],opts['path']).col({span: 10}).validate({required:opts['required']})
 
 }
 
 function url(opts){
 	
-	return formCreate.maker.url(opts['label'],opts['path']).col({span: 12})
+	return formCreate.maker.url(opts['label'],opts['path']).col({span: 12}).validate({required:opts['required']})
 }
 
 function number(opts){
 	
-	return formCreate.maker.number(opts['label'],opts['path']).col({span: 6})
+	return formCreate.maker.number(opts['label'],opts['path']).col({span: 6}).validate({required:opts['required']})
 }
 
 function color(opts){
 	
-	return formCreate.maker.color(opts['label'],opts['path'],'#F12345')
+	return formCreate.maker.color(opts['label'],opts['path'],'#F12345').validate({required:opts['required']})
 }
 
 function select(opts){
 	
 	return formCreate.maker.select(opts['label'],opts['path']).options(opts['ops']).props({
         multiple:true
-	}).col({span:6})
+	}).col({span:6}).validate({required:opts['required']})
 }
 function date(opts){
 	
 	return formCreate.maker.date(opts['label'],opts['path'],[new Date()]).props({
         "type": "date",
-	})
+	}).validate({required:opts['required']})
 }
 function datetime(opts){
 	
 	return formCreate.maker.date(opts['label'],opts['path'],[new Date()]).props({
         "type": "datetime",
-	})
+	}).validate({required:opts['required']})
 }
 
 function file(opts){
@@ -70,7 +70,7 @@ function file(opts){
 
 	return  formCreate.maker.create('input',opts['path'],opts['label']).props({
 			type: "file",
-  			}).col({span:12})
+  			}).col({span:12}).validate({required:opts['required']})
 
 }
 function textarea(opts){
@@ -78,7 +78,7 @@ function textarea(opts){
 	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12}).props({
         "type": "textarea",
         "rows":5
-      }).col({span:16})
+      }).col({span:16}).validate({required:opts['required']})
 }
 
 function html(opts){
@@ -86,7 +86,7 @@ function html(opts){
 	return formCreate.maker.input(opts['label'],opts['path']).col({span: 12}).props({
         "type": "textarea",
         "rows":5,
-      }).col({span:16}).className("tinyMCE").emit('change')
+      }).col({span:16}).className("tinyMCE").emit('change').validate({required:opts['required']})
 
 }
 var CreateTable={
@@ -179,7 +179,7 @@ Forms.prototype = {
 
 
 	},
-	setform:function (list,vue,formdata){
+	setform:function (list,vue,formdata){ //edit form
 		var that = this
 
 		$.ajax({url:"/admin/api/form/" + list,
@@ -190,6 +190,8 @@ Forms.prototype = {
 
 				
 					Object.keys(fields).forEach(function(k){
+
+						
 						var field = getMaker(fields[k])	
 
 						// formdata from db
@@ -229,8 +231,9 @@ Forms.prototype = {
 								//default
 								field.rule.value = formdata[k]
 							}
+						} else if(fields[k].type === "password"){
+								field = formCreate.maker.password(fields[k]['label'],fields[k]['path']).col({span:8})
 						}
-
 						rule.push(field)
 					})
 
@@ -288,7 +291,9 @@ Forms.prototype = {
 			data:formData,          //submit data
 			dataType:"json",        //return data type
 			success:function(data){
-				console.log(data)
+				var ifra = parent.subpage
+				var timestamp = (new Date()).valueOf();
+                ifra.src = "/admin/lists.html?time="+timestamp;
 			}
 		});//ajax
 	},
@@ -309,7 +314,9 @@ Forms.prototype = {
 			data:formData,          //submit data
 			dataType:"json",        //return data type
 			success:function(data){
-				console.log(data)
+				var ifra = parent.subpage
+				var timestamp = (new Date()).valueOf();
+                ifra.src = "/admin/lists.html?time="+timestamp;
 			}
 		});//ajax
 	}
