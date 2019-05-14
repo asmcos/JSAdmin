@@ -26,17 +26,20 @@ function DbMenu(){
 
 DbMenu.prototype = {
 
-	getDBInfo:function (vue){
+	getDBInfo:function (vue,menudata){
 		var that = this
 		$.ajax({url:"/admin/api/lists",
 				dataType: "json",
             	success: function(data){
 					var keys = Object.keys(data);
-					keys.forEach(function(k){
-						var m = {title : k,url:data[k].path,count:data[k].count,options:data[k].options.defaultColumns}
+					menudata.forEach(function(menu){
+						k = menu.fields.url
+
+						var m = {title : menu.fields.title,url:data[k].path,count:data[k].count,options:data[k].options.defaultColumns,
+								icon:"fa fa-"+menu.fields.icon}
 						
 						vue.$data.menus.push(m)
-					})										
+					})
 				},
 				error : function() {
         		 	var pathname = window.location.pathname
@@ -45,7 +48,18 @@ DbMenu.prototype = {
 		});
  		
 	},
-	
+	getDbMenu:function(vue){
+		var that = this
+		var filterdata='{"type":{"value":1}}';
+
+		$.ajax({
+			url:"/admin/api/get/menus?filters=" + filterdata,
+			dataType:"json",
+			success: function(data){
+				that.getDBInfo(vue,data['results'])
+			},
+		});//ajax
+	},	
 }
 
 

@@ -49,7 +49,7 @@ function color(opts){
 function select(opts){
 	
 	return formCreate.maker.select(opts['label'],opts['path']).options(opts['ops']).props({
-        multiple:true
+        // multiple:true
 	}).col({span:6}).validate({required:opts['required']})
 }
 function date(opts){

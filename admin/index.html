@@ -253,11 +253,19 @@ desired effect
 
       <!-- Sidebar Menu -->
        <ul class="sidebar-menu" id="menu_main" data-widget="tree">
+         <li>
+            <a v-on:click="menuHandle('users','name, email, isAdmin')"><i class="fa fa-user"></i> <span>User</span></a>
+         </li>
+
+         <li>
+            <a v-on:click="menuHandle('menus','title,type,url,level')"><i class="fa fa-table"></i> <span>Menu</span></a>
+         </li>
+
         <template v-for="m in menus">
         <li v-bind:class="m.vclass">
 
 			<template v-if='m.submenus'> <!--submenus-->
-             <a href="#" v-if="m.url"><i class="fa fa-table"></i> <span>{{m.title}}</span>
+             <a href="#" v-if="m.url"><i v-bind:class="m.icon"></i> <span>{{m.title}}</span>
              <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right">{{m.count}}</i>
               </span>
@@ -272,7 +280,7 @@ desired effect
             </template>
 
 			<template v-else> <!--no submenus-->
-              <a v-if="m.url" v-on:click="menuHandle(m.url,m.options)"><i class="fa fa-table"></i> <span>{{m.title}}</span>
+              <a v-if="m.url" v-on:click="menuHandle(m.url,m.options)"><i v-bind:class="m.icon"></i> <span>{{m.title}}</span>
 			   <span class="pull-right-container">
                 <span class="label label-primary pull-right">{{m.count}}</span>
                </span>
@@ -288,31 +296,11 @@ desired effect
 
 
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Example</li>
+        <li class="header">Setting</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active">
-            <a href="#"><i class="fa fa-link"></i> <span>Link</span></a>
+            <a href="#"><i class="fa fa-spinner"></i> <span>Setting</span></a>
          </li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2.1
-                 <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                 </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#">Link in level 3</a></li>
-                </ul>
-            </li>  
-            <li><a href="#">Link in level 2.2</a></li>
-          </ul>
-        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -458,6 +446,7 @@ $( document ).ready(function() {
 		//url = /keystone/api/:list
 
     	menuHandle: function (list,options) {
+			// this.parent().addClass("actives")
 			var timestamp = (new Date()).valueOf(); 
 			$("#subpage").attr("src","/admin/lists.html?time="+timestamp);
 		 	$("#subpage").attr("list",list);	
@@ -466,7 +455,7 @@ $( document ).ready(function() {
   }
   });
    
-   db.getDBInfo(menuVue)
+   db.getDbMenu(menuVue)
 
    menuVue.$mount('#menu_main')
 
