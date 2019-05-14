@@ -254,11 +254,11 @@ desired effect
       <!-- Sidebar Menu -->
        <ul class="sidebar-menu" id="menu_main" data-widget="tree">
          <li>
-            <a v-on:click="menuHandle('users','name, email, isAdmin')"><i class="fa fa-user"></i> <span>User</span></a>
+            <a v-on:click="menuHandle($event,'users','name, email, isAdmin')"><i class="fa fa-user"></i> <span>User</span></a>
          </li>
 
          <li>
-            <a v-on:click="menuHandle('menus','title,type,url,level')"><i class="fa fa-table"></i> <span>Menu</span></a>
+            <a v-on:click="menuHandle($event,'menus','title,type,url,level')"><i class="fa fa-table"></i> <span>Menu</span></a>
          </li>
 
         <template v-for="m in menus">
@@ -280,7 +280,12 @@ desired effect
             </template>
 
 			<template v-else> <!--no submenus-->
-              <a v-if="m.url" v-on:click="menuHandle(m.url,m.options)"><i v-bind:class="m.icon"></i> <span>{{m.title}}</span>
+              <a v-if="m.url&&m.type==1" v-on:click="menuHandle($event,m.url,m.options)"><i v-bind:class="m.icon"></i> <span>{{m.title}}</span>
+			   <span class="pull-right-container">
+                <span class="label label-primary pull-right">{{m.count}}</span>
+               </span>
+			  </a>
+              <a v-else-if="m.url&&m.type==2" v-on:click="menuHandle2($event,m.url,m.options)"><i v-bind:class="m.icon"></i> <span>{{m.title}}</span>
 			   <span class="pull-right-container">
                 <span class="label label-primary pull-right">{{m.count}}</span>
                </span>
@@ -298,7 +303,7 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Setting</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active">
+        <li>
             <a href="#"><i class="fa fa-spinner"></i> <span>Setting</span></a>
          </li>
       </ul>
@@ -324,7 +329,7 @@ desired effect
     <!-- Main content -->
     <section class="content">
       <!-- Your Page Content Here -->
-		<iframe id="subpage" width="100%" class="content-wrapper" style="margin-left:0px;" src="/admin/lists.html" frameborder="0" ></iframe>
+		<iframe id="subpage" width="100%" class="content-wrapper" style="margin-left:0px;" src="/static/widgets.html" frameborder="0" ></iframe>
 
     </section>
     <!-- /.content -->
@@ -439,18 +444,46 @@ $( document ).ready(function() {
      data: {
        menus: [
         { title: 'MENU', vclass: 'header' },
-      ]
+      ],
+	  activeEl:""
     },
 	methods: {
 
 		//url = /keystone/api/:list
 
-    	menuHandle: function (list,options) {
-			// this.parent().addClass("actives")
+    	menuHandle: function (e,list,options) {
 			var timestamp = (new Date()).valueOf(); 
 			$("#subpage").attr("src","/admin/lists.html?time="+timestamp);
 		 	$("#subpage").attr("list",list);	
 		 	$("#subpage").attr("options",options);
+
+			// reflush active flag
+			if (e.target.parentElement.parentElement.tagName == "LI"){
+				elem = e.target.parentElement.parentElement
+			} else if (e.target.parentElement.tagName == "LI") {
+				elem = e.target.parentElement
+			}
+			if (this.activeEl){
+				this.activeEl.className = ""
+			}
+			elem.className = "active"
+			this.activeEl = elem
+    	},
+    	menuHandle2: function (e,url,options) {
+			var timestamp = (new Date()).valueOf(); 
+			$("#subpage").attr("src",url+ "?time="+timestamp);
+
+				// reflush active flag
+			if (e.target.parentElement.parentElement.tagName == "LI"){
+				elem = e.target.parentElement.parentElement
+			} else if (e.target.parentElement.tagName == "LI") {
+				elem = e.target.parentElement
+			}
+			if (this.activeEl){
+				this.activeEl.className = ""
+			}
+			elem.className = "active"
+			this.activeEl = elem
     	},
   }
   });

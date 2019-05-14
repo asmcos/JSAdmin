@@ -36,10 +36,11 @@ DbMenu.prototype = {
 						k = menu.fields.url
 
 						var m = {title : menu.fields.title,url:data[k].path,count:data[k].count,options:data[k].options.defaultColumns,
-								icon:"fa fa-"+menu.fields.icon}
+								icon:"fa fa-"+menu.fields.icon,type:1}
 						
 						vue.$data.menus.push(m)
 					})
+					that.getOtherMenu(vue)
 				},
 				error : function() {
         		 	var pathname = window.location.pathname
@@ -60,6 +61,22 @@ DbMenu.prototype = {
 			},
 		});//ajax
 	},	
+	getOtherMenu:function(vue){
+		var that = this
+		var filterdata='{"type":{"value":2}}';
+
+		$.ajax({
+			url:"/admin/api/get/menus?filters=" + filterdata,
+			dataType:"json",
+			success: function(data){
+				data['results'].forEach(function(menu){
+					var m = {title:menu.fields.title,url:menu.fields.url,icon:"fa fa-"+menu.fields.icon,type:2}
+					vue.$data.menus.push(m)
+				})
+			},
+		});//ajax
+
+	},
 }
 
 
