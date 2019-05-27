@@ -295,19 +295,16 @@ desired effect
         </li>
         
        </template>
+
+        <li class="header">Setting</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li>
+            <a v-on:click="menuHandle($event,'sysconfs','confkey,confval')"><i class="fa fa-spinner"></i> <span>系统配置</span></a>
+         </li>
        </ul>
       <!-- /.sidebar-menu -->
       <!-- Sidebar Menu -->
 
-
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">Setting</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li>
-            <a href="#"><i class="fa fa-spinner"></i> <span>Setting</span></a>
-         </li>
-      </ul>
-      <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -455,7 +452,6 @@ $( document ).ready(function() {
     },
 	methods: {
 
-		//url = /keystone/api/:list
 
     	menuHandle: function (e,list,options) {
 			var timestamp = (new Date()).valueOf(); 

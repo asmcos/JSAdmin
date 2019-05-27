@@ -44,6 +44,10 @@ exports = module.exports = function (app) {
 	//other static ,admin-lte,bootstrap,
 	app.use('/static', keystone.express.static(path.join(__dirname, '../public')))
 
+
+	//client app routers
+	app.use('/', keystone.express.static(path.join(__dirname, '../app')))
+    app.get('/views/index', routes.views.index);
 };
 
 

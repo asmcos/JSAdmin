@@ -13,6 +13,9 @@ module.exports = {
 			 // Copy directory contents to {output}/to/directory/
             { from: './node_modules/admin-lte/dist',to: '../../public'},
             { from: './node_modules/bootstrap/dist',to: '../../public'},
+            { from: './node_modules/casper/assets/css',to: '../../public/css'},
+            { from: './node_modules/casper/assets/js',to: '../../public/js'},
+            { from: './node_modules/casper/assets/built/screen.css',to: '../../public/css/screen.css'},
             { from: './node_modules/bootstrap/js/tooltip.js',to: '../../public/js/tooltip.js'},
             { from: './node_modules/vue/dist/vue.js',to: '../../public/js/vue.js'},
 				

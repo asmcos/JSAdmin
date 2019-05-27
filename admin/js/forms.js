@@ -163,6 +163,15 @@ Forms.prototype = {
 					vue.$data.rule = rule
 					vue.$nextTick(function(){
 									tinymce.init({selector:'.tinyMCE textarea',    
+											width:'800',
+											height:'600',
+											plugins: [
+             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+             "save table contextmenu directionality emoticons template paste textcolor"
+       ],
+		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
+										
 											setup: function (editor) {
 												editor.on(
               										'input change undo redo', () => {
@@ -243,6 +252,17 @@ Forms.prototype = {
 
 					vue.$nextTick(function(){
 									tinymce.init({selector:'.tinyMCE textarea',    
+
+											width:'800',
+											height:'600',
+   plugins: [
+             "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+             "save table contextmenu directionality emoticons template paste textcolor"
+       ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+
 											setup: function (editor) {
 												editor.on(
               										'input change undo redo', () => {
