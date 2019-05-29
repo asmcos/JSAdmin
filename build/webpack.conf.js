@@ -16,6 +16,7 @@ module.exports = {
             { from: './node_modules/casper/assets/css',to: '../../public/css'},
             { from: './node_modules/casper/assets/js',to: '../../public/js'},
             { from: './node_modules/casper/assets/built/screen.css',to: '../../public/css/screen.css'},
+            { from: './node_modules/casper/assets/built/global.css',to: '../../public/css/global.css'},
             { from: './node_modules/bootstrap/js/tooltip.js',to: '../../public/js/tooltip.js'},
             { from: './node_modules/vue/dist/vue.js',to: '../../public/js/vue.js'},
 				

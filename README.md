@@ -1,4 +1,4 @@
-JSAdmin is a admin. It base on NodeJS + adminLTE  + VUE + Keystone.
+JSAdmin is a admin. It base on NodeJS + adminLTE  + VUE + KeystoneJS.
 
 https://github.com/almasaeed2010/AdminLTE
 
@@ -20,4 +20,6 @@ node index.js
 
 ![image](https://github.com/asmcos/JSAdmin/blob/master/img.jpg)
 
-#support auto keystone fields to forms
+#support auto keystonejs fields to forms
+
+#Frontend theme by Ghost's casper

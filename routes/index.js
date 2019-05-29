@@ -48,6 +48,7 @@ exports = module.exports = function (app) {
 	//client app routers
 	app.use('/', keystone.express.static(path.join(__dirname, '../app')))
     app.get('/views/index', routes.views.index);
+    app.get('/views/blog', routes.views.blog);
 };
 
 
