@@ -32,9 +32,38 @@ function email(opts){
 }
 
 function url(opts){
-	
-	return formCreate.maker.url(opts['label'],opts['path']).col({span: 12}).validate({required:opts['required']})
+
+	//image src url
+	if (opts.collapse == "unsplashimg") {	
+	  return formCreate.maker.url(opts['label'],opts['path']).col({span: 12}).validate({required:opts['required']}).children([
+
+	    formCreate.maker.create('i-button').domProps({
+          innerHTML: '从库里选择'
+        }).slot("append").style({background:'#2d8cf0',color: '#fff'}).on ({
+    						click: function(e){
+								console.log(e)
+							 } 
+  							})
+                                        			
+								
+	   ]).children([
+
+	   formCreate.maker.create('i-button').domProps({
+         innerHTML: '本地上传',
+       }).slot("append").style({    background: '#f39c12',color:'#fff',
+    		margin: '-6px -7px -7px 10px'}).on({
+				click:function(e){
+					console.log(e)
+				}
+			})											
+	   ])
+
+	 } else {
+	 		// generic url
+		 return formCreate.maker.url(opts['label'],opts['path']).col({span: 12}).validate({required:opts['required']})
+	}
 }
+
 
 function number(opts){
 	
