@@ -21,7 +21,7 @@ function getsysconf(data,cb){
 function getBlog(data,cb){
 
 	var Blog = keystone.list( "Blog" )
-	Blog.model.find().exec(function(err,result){
+	Blog.model.find().sort("-_id").exec(function(err,result){
 
 		data.blog = result
 		cb(null,"blog")

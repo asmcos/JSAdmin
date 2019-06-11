@@ -35,13 +35,13 @@ function url(opts){
 
 	//image src url
 	if (opts.collapse == "unsplashimg") {	
-	  return formCreate.maker.url(opts['label'],opts['path']).col({span: 12}).validate({required:opts['required']}).children([
+	  return formCreate.maker.url(opts['label'],opts['path']).col({span: 18}).validate({required:opts['required']}).children([
 
 	    formCreate.maker.create('i-button').domProps({
           innerHTML: '从库里选择'
         }).slot("append").style({background:'#2d8cf0',color: '#fff'}).on ({
     						click: function(e){
-								console.log(e)
+								toUnsplash(e.target.parentElement.previousElementSibling.id)
 							 } 
   							})
                                         			
@@ -53,7 +53,7 @@ function url(opts){
        }).slot("append").style({    background: '#f39c12',color:'#fff',
     		margin: '-6px -7px -7px 10px'}).on({
 				click:function(e){
-					console.log(e)
+					toUpload(e.target.parentElement.previousElementSibling.id)
 				}
 			})											
 	   ])
@@ -379,4 +379,31 @@ function urlParam (url,name){
        return null;
     }
     return decodeURI(results[1]) || 0;
+}
+
+
+// Select image from splash or uploadfile
+var current_inputId ;
+function toUnsplash(id){
+	current_inputId = id
+	$("#unsplash1").show()
+	$("#app1").hide()
+}
+
+function showApp(){
+	$("#app1").show()
+	$("#unsplash1").hide()
+	$("#upload1").hide()
+}
+
+function toUpload(id){
+	current_inputId = id
+	$("#upload1").show()
+	$("#app1").hide()
+}
+
+function backUnsplash(vue,url){
+	showApp()
+	getFieldByEl(vue,current_inputId ,url)
+	$("#" + current_inputId).val(url)
 }

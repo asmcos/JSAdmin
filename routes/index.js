@@ -38,7 +38,10 @@ exports = module.exports = function (app) {
     app.get('/admin/api/lists', routes.api.lists);
     app.get('/admin/api/listcolumns/:list', routes.api.listcolumns);
 
- 	// use static for admin	
+    app.get('/admin/api/unsplashlist', routes.api.unsplashapi);
+    app.get('/admin/api/unsplashsearch', routes.api.unsplashapi.search);
+ 
+	// use static for admin	
 	app.use('/admin', keystone.express.static(path.join(__dirname, '../admin')))
 
 	//other static ,admin-lte,bootstrap,
