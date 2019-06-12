@@ -41,6 +41,7 @@ exports = module.exports = function (app) {
     app.get('/admin/api/unsplashlist', routes.api.unsplashapi);
     app.get('/admin/api/unsplashsearch', routes.api.unsplashapi.search);
  
+    app.get('/admin/api/imagelist', routes.api.imageapi);
 	// use static for admin	
 	app.use('/admin', keystone.express.static(path.join(__dirname, '../admin')))
 

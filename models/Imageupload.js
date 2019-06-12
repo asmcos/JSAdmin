@@ -6,7 +6,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
-var Fileupload = new keystone.List('Fileupload',{
+var Imageupload = new keystone.List('Imageupload',{
 	defaultSort: '-id'
 	});
 
@@ -24,12 +24,12 @@ var storage = new keystone.Storage({
 });
 
 
-Fileupload.add({
-  uploadfile: { type: Types.File, storage: storage },
+Imageupload.add({
+  image: { type: Types.File, storage: storage, collapse:"image" },
   dateTime:{ type: Types.Datetime, default: Date.now } ,
 });
 
-Fileupload.defaultColumns = 'uploadfile';
-Fileupload.register();
+Imageupload.defaultColumns = 'image';
+Imageupload.register();
 
 

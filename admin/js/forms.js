@@ -97,10 +97,19 @@ function datetime(opts){
 function file(opts){
 	
 
-	return  formCreate.maker.create('input',opts['path'],opts['label']).props({
+	if (opts.collapse == "image") {	
+
+	   return  formCreate.maker.create('input',opts['path'],opts['label']).props({
+            	type: "file",
+            }).attrs({
+		    	accept: "image/*",
+			}).col({span:12}).validate({required:opts['required']})
+
+	} else {
+		return  formCreate.maker.create('input',opts['path'],opts['label']).props({
 			type: "file",
   			}).col({span:12}).validate({required:opts['required']})
-
+	}
 }
 function textarea(opts){
 	
