@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>supervisor 启动golang server，守护进程</title>
+    <title>JSAdmin</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -33,9 +33,9 @@
     <div class="inner">
         <nav class="site-nav">
     <div class="site-nav-left">
-                <a class="site-nav-logo" href="http://blog.xiulian.net.cn">asmcos</a>
+                <a class="site-nav-logo" href="/">asmcos</a>
             <ul class="nav" role="menu">
-    <li class="nav-home" role="menuitem"><a href="http://blog.xiulian.net.cn/">Home</a></li>
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
 </ul>
 
     </div>
@@ -101,11 +101,11 @@
         <div class="read-next-feed">
 
                 <article class="post-card post" v-if="prevblog._id">
-        <a class="post-card-image-link" href="/ge-ren-shi-jian-guan-li/">
+        <a class="post-card-image-link" v-bind:href="'/blog.html?id='+prevblog._id">
             <div class="post-card-image" v-bind:style="'background-image: url('+prevblog.bgimg+')'"></div>
         </a>
     <div class="post-card-content">
-        <a class="post-card-content-link" href="/ge-ren-shi-jian-guan-li/">
+        <a class="post-card-content-link" v-bind:href="'/blog.html?id='+prevblog._id">
             <header class="post-card-header">
                 <h2 class="post-card-title">{{prevblog.title}}</h2>
             </header>
@@ -134,11 +134,11 @@
 </article>
 
                 <article class="post-card post" v-if="nextblog._id">
-        <a class="post-card-image-link" href="/gin-ru-men/">
+        <a class="post-card-image-link" v-bind:href="'/blog.html?id='+nextblog._id">
             <div class="post-card-image" v-bind:style="'background-image: url('+nextblog.bgimg+')'"></div>
         </a>
     <div class="post-card-content">
-        <a class="post-card-content-link" href="/gin-ru-men/">
+        <a class="post-card-content-link" v-bind:href="'/blog.html?id='+nextblog._id">
             <header class="post-card-header">
                 <h2 class="post-card-title">{{nextblog.title}}</h2>
             </header>
@@ -292,7 +292,7 @@ $(document).ready(function () {
       }) // vue
 
       db.getBlog(mainVue)
-
+	  
 
 
 });
