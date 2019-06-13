@@ -55,7 +55,7 @@
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="2018-11-14">14 November 2018</time>
+                    <time class="post-full-meta-date" datetime="">{{blog.dateTime|DateFormat}}</time>
                 </section>
                 <h1 class="post-full-title">{{blog.title}}</h1>
             </header>
@@ -281,6 +281,14 @@ $(document).ready(function () {
     update();
 
       var db = new blogDb()
+		
+	  Vue.filter('DateFormat',function (val) {
+            if (!val) return ''
+			d = new Date(val)
+            return d.toLocaleDateString()
+
+      });
+
       var mainVue = new Vue({
        el: '#mainApp',
        data: {
