@@ -42,7 +42,7 @@ DbMenu.prototype = {
 					})
 					that.getOtherMenu(vue)
 				},
-				error : function() {
+				error: function(e) {
         		 	var pathname = window.location.pathname
 					window.location.href= "/keystone/signin?from=" + pathname 
     			},
@@ -59,6 +59,10 @@ DbMenu.prototype = {
 			success: function(data){
 				that.getDBInfo(vue,data['results'])
 			},
+			error: function(e) {
+        		 	var pathname = window.location.pathname
+					window.location.href= "/keystone/signin?from=" + pathname 
+    		},
 		});//ajax
 	},	
 	getOtherMenu:function(vue){
@@ -74,6 +78,10 @@ DbMenu.prototype = {
 					vue.$data.menus.push(m)
 				})
 			},
+			error: function(e) {
+        		 	var pathname = window.location.pathname
+					window.location.href= "/keystone/signin?from=" + pathname 
+    		},
 		});//ajax
 
 	},
