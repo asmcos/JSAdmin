@@ -2,7 +2,7 @@ JSAdmin is a admin. It base on NodeJS + adminLTE  + VUE + KeystoneJS.
 
 https://github.com/almasaeed2010/AdminLTE
 
-#Dependencies
+# Dependencies
  -AdminLTE
  -NodeJS
  -express
@@ -10,7 +10,7 @@ https://github.com/almasaeed2010/AdminLTE
  -Keystone->mongodb
  -form-create(vue+iview)
 
-#Install
+# Installation
  -npm install
  -npm install webpack -g
  -npm run build
@@ -20,6 +20,6 @@ https://github.com/almasaeed2010/AdminLTE
 
 ![image](https://github.com/asmcos/JSAdmin/blob/master/img.jpg)
 
-#Support auto keystonejs fields to forms
+# Support auto keystonejs fields to forms
 
-#Frontend theme by Ghost's casper
+# Frontend theme by Ghost's casper
