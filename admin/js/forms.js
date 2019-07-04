@@ -170,7 +170,9 @@ function convertData(vue,data){
 	var Data = new FormData();
 
 	vue.$data.rule.forEach(function(f){
-		if (f.value === "")
+
+
+		if (f.value === "" && f.props.type === "password") 
 			return 
 		if (f.props.type === "file"){
 			Data.append(f.field, $("#"+f.props.elementId)[0].files[0])
