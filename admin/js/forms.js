@@ -172,8 +172,16 @@ function convertData(vue,data){
 	vue.$data.rule.forEach(function(f){
 
 
-		if (f.value === "" && f.props.type === "password") 
-			return 
+        // 当重新编辑 密码和文件类型的时候 value === “”  代表没有改变。
+        // 也就是说如果编辑状态是把原有密码设置密码为空，
+        //   或者把以前上传的文件删除为空值 这两种操作目前不支持。
+
+        if (f.value === "" ){
+            if (f.props.type === "password" || f.props.type === "file")
+                return
+        } //不设置空值
+
+
 		if (f.props.type === "file"){
 			Data.append(f.field, $("#"+f.props.elementId)[0].files[0])
 		} else {
